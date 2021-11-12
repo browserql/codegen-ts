@@ -104,7 +104,7 @@ function handler(_a) {
                     // @ts-ignore
                     var kind = (0, kind_1.default)(arg);
                     var parsed = (0, kind_2.default)(kind);
-                    return "" + argName + (parsed.required ? '' : '?') + ": " + tsKind(kind);
+                    return "" + argName + (parsed.required ? '' : '?') + ": " + tsKind(kind) + ",";
                 }).join('\n') + "\n    ): Promise<any>";
             });
             return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [

@@ -70,7 +70,7 @@ export async function handler({ document }: Schema) {
         const kind = getKind(arg)
         const parsed = parseKind(kind)
 
-        return `${argName}${parsed.required ? '' : '?'}: ${tsKind(kind)}`
+        return `${argName}${parsed.required ? '' : '?'}: ${tsKind(kind)},`
       }).join('\n')}
     ): Promise<any>`
   })
