@@ -82,9 +82,9 @@ function handler(_a) {
             typesToInterfaces = types.map(function (type) {
                 var typeName = (0, name_1.default)(type);
                 var fields = (0, fields_1.default)(type);
-                return "interface " + typeName + " {\n      " + fields.map(function (field) {
+                return "export interface " + typeName + " {\n      " + fields.map(function (field) {
                     var fieldName = (0, name_1.default)(field);
-                    var kind = (0, kind_1.default)(type);
+                    var kind = (0, kind_1.default)(field);
                     return fieldName + ": " + tsKind(kind);
                 }).join('\n') + "\n    }";
             });

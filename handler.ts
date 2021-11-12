@@ -1,4 +1,4 @@
-import { DocumentNode, GraphQLSchema, parse } from 'graphql';
+import { DocumentNode, GraphQLSchema, ObjectTypeDefinitionNode } from 'graphql';
 import getEnumerations from '@browserql/fpql/get/enumerations';
 import getName from '@browserql/fpql/get/name';
 import getTypes from '@browserql/fpql/get/types';
@@ -34,16 +34,16 @@ function tsKind(kind: string) {
 }
 
 export async function handler({ document }: Schema) {
-  const types = getTypes(document)
+  const types = getTypes(document) as ObjectTypeDefinitionNode[]
 
   const typesToInterfaces = types.map(type => {
     const typeName = getName(type)
     const fields = getFields(type)
 
-    return `interface ${typeName} {
+    return `export interface ${typeName} {
       ${fields.map(field => {
         const fieldName = getName(field)
-        const kind = getKind(type)
+        const kind = getKind(field)
 
         return `${fieldName}: ${tsKind(kind)}`
       }).join('\n')}
