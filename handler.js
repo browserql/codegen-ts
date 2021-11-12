@@ -99,13 +99,14 @@ function handler(_a) {
             queriesTs = queries.map(function (query) {
                 var queryName = (0, name_1.default)(query);
                 var args = (0, arguments_1.default)(query);
+                var queryKind = (0, kind_1.default)(query);
                 return queryName + "(\n      " + args.map(function (arg) {
                     var argName = (0, name_1.default)(arg);
                     // @ts-ignore
                     var kind = (0, kind_1.default)(arg);
                     var parsed = (0, kind_2.default)(kind);
                     return "" + argName + (parsed.required ? '' : '?') + ": " + tsKind(kind) + ",";
-                }).join('\n') + "\n    ): Promise<any>";
+                }).join('\n') + "\n    ): Promise<" + tsKind(queryKind) + ">";
             });
             return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
                     "export interface Query {\n      " + queriesTs.join('\n') + "\n    }"

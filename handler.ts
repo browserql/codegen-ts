@@ -62,6 +62,7 @@ export async function handler({ document }: Schema) {
   const queriesTs = queries.map(query => {
     const queryName = getName(query)
     const args = getArguments(query)
+    const queryKind = getKind(query)
 
     return `${queryName}(
       ${args.map(arg => {
@@ -72,7 +73,7 @@ export async function handler({ document }: Schema) {
 
         return `${argName}${parsed.required ? '' : '?'}: ${tsKind(kind)},`
       }).join('\n')}
-    ): Promise<any>`
+    ): Promise<${tsKind(queryKind)}>`
   })
 
   return [
