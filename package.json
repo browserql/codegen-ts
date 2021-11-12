@@ -1,0 +1,22 @@
+{
+  "name": "@browserql/codegen-ts",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browserql/codegen-ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "graphql": "^16.0.1"
+  },
+  "dependencies": {
+    "@browserql/tsgen": "^1.13.0"
+  }
+}
