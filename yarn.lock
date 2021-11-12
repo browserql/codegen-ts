@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@browserql/fpql/-/fpql-2.6.1.tgz#10078bae00839feb42cdbf7d162d587bb0feaf8e"
   integrity sha512-GwCj9q3ekP2z7BJuxl03n9/d2tJBHzBfIOT5dzSyTnP80z3mC1pmNA4OLzGch9jRJNZlpGBOo8pnwr2iqMaicw==
 
+"@browserql/fpql@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@browserql/fpql/-/fpql-3.0.0.tgz#fd625f2fdc8e17b1b9a111496a3279f390ea75d0"
+  integrity sha512-Xx9LkY37L9cUliFuLjJ9yR0sWXxQlpYCpYxHnpNcB4fueRKGHbZKLsEVOoxLxJ8jOfQDBuB1kq3YZ655y7Ld3A==
+
 "@browserql/tsgen@^1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@browserql/tsgen/-/tsgen-1.13.0.tgz#f4c1449312a2e07917dc366b88717bec72a79ca3"

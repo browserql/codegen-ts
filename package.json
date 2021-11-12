@@ -17,6 +17,7 @@
     "graphql": "^16.0.1"
   },
   "dependencies": {
+    "@browserql/fpql": "^3.0.0",
     "@browserql/tsgen": "^1.13.0"
   }
 }
