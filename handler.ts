@@ -19,6 +19,6 @@ export async function handler({ document }: Schema) {
   })
 
   return [
-    typesToInterfaces
+    ...typesToInterfaces
   ].join('\n')
 }
