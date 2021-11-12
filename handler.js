@@ -55,6 +55,7 @@ var types_1 = __importDefault(require("@browserql/fpql/get/types"));
 var fields_1 = __importDefault(require("@browserql/fpql/get/fields"));
 var kind_1 = __importDefault(require("@browserql/fpql/get/kind"));
 var kind_2 = __importDefault(require("@browserql/fpql/parse/kind"));
+var arguments_1 = __importDefault(require("@browserql/fpql/get/arguments"));
 function tsKindType(type) {
     if (type === 'String' || type === 'ID') {
         return 'string';
@@ -97,7 +98,14 @@ function handler(_a) {
             queries = (0, queries_1.default)(document);
             queriesTs = queries.map(function (query) {
                 var queryName = (0, name_1.default)(query);
-                return queryName + "(): Promise<any>";
+                var args = (0, arguments_1.default)(query);
+                return queryName + "(\n      " + args.map(function (arg) {
+                    var argName = (0, name_1.default)(arg);
+                    // @ts-ignore
+                    var kind = (0, kind_1.default)(arg);
+                    var parsed = (0, kind_2.default)(kind);
+                    return "" + argName + (parsed.required ? '' : '?') + ": " + tsKind(kind);
+                }).join('\n') + "\n    ): Promise<any>";
             });
             return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
                     "export interface Query {\n      " + queriesTs.join('\n') + "\n    }"

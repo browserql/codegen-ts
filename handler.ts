@@ -6,6 +6,7 @@ import getTypes from '@browserql/fpql/get/types';
 import getFields from '@browserql/fpql/get/fields';
 import getKind from '@browserql/fpql/get/kind';
 import parseKind from '@browserql/fpql/parse/kind';
+import getArguments from '@browserql/fpql/get/arguments';
 
 interface Schema {
   source: string
@@ -60,8 +61,18 @@ export async function handler({ document }: Schema) {
 
   const queriesTs = queries.map(query => {
     const queryName = getName(query)
+    const args = getArguments(query)
 
-    return `${queryName}(): Promise<any>`
+    return `${queryName}(
+      ${args.map(arg => {
+        const argName = getName(arg)
+        // @ts-ignore
+        const kind = getKind(arg)
+        const parsed = parseKind(kind)
+
+        return `${argName}${parsed.required ? '' : '?'}: ${tsKind(kind)}`
+      }).join('\n')}
+    ): Promise<any>`
   })
 
   return [
