@@ -64,6 +64,9 @@ function tsKindType(type) {
     if (type === 'Boolean') {
         return 'boolean';
     }
+    if (type === 'Date') {
+        return 'Date';
+    }
 }
 function tsKind(kind) {
     var parsed = (0, kind_2.default)(kind);

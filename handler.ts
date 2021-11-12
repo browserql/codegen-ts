@@ -22,6 +22,9 @@ function tsKindType(type: string) {
   if (type === 'Boolean') {
     return 'boolean'
   }
+  if (type === 'Date') {
+    return 'Date'
+  }
 }
 
 function tsKind(kind: string) {
