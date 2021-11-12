@@ -49,6 +49,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
+var queries_1 = __importDefault(require("@browserql/fpql/get/queries"));
 var name_1 = __importDefault(require("@browserql/fpql/get/name"));
 var types_1 = __importDefault(require("@browserql/fpql/get/types"));
 var fields_1 = __importDefault(require("@browserql/fpql/get/fields"));
@@ -71,12 +72,16 @@ function tsKindType(type) {
 function tsKind(kind) {
     var parsed = (0, kind_2.default)(kind);
     var type = tsKindType(parsed.type);
-    return type;
+    var arrays = '';
+    for (var i = 0; i < parsed.depth; i++) {
+        arrays += '[]';
+    }
+    return "" + type + arrays;
 }
 function handler(_a) {
     var document = _a.document;
     return __awaiter(this, void 0, void 0, function () {
-        var types, typesToInterfaces;
+        var types, typesToInterfaces, queries, queriesTs;
         return __generator(this, function (_b) {
             types = (0, types_1.default)(document);
             typesToInterfaces = types.map(function (type) {
@@ -89,7 +94,14 @@ function handler(_a) {
                     return "" + fieldName + (parsed.required ? '' : '?') + ": " + tsKind(kind);
                 }).join('\n') + "\n    }";
             });
-            return [2 /*return*/, __spreadArray([], typesToInterfaces, true).join('\n')];
+            queries = (0, queries_1.default)(document);
+            queriesTs = queries.map(function (query) {
+                var queryName = (0, name_1.default)(query);
+                return "async " + queryName + "() {}";
+            });
+            return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
+                    "type Query {\n      " + queriesTs.join('\n') + "\n    }"
+                ], false).join('\n')];
         });
     });
 }

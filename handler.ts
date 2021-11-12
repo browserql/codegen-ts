@@ -1,5 +1,6 @@
 import { DocumentNode, GraphQLSchema, ObjectTypeDefinitionNode } from 'graphql';
 import getEnumerations from '@browserql/fpql/get/enumerations';
+import getQueries from '@browserql/fpql/get/queries';
 import getName from '@browserql/fpql/get/name';
 import getTypes from '@browserql/fpql/get/types';
 import getFields from '@browserql/fpql/get/fields';
@@ -30,7 +31,11 @@ function tsKindType(type: string) {
 function tsKind(kind: string) {
   const parsed = parseKind(kind)
   const type = tsKindType(parsed.type)
-  return type
+  let arrays = ''
+  for (let i = 0; i < parsed.depth; i++) {
+    arrays += '[]'
+  }
+  return `${type}${arrays}`
 }
 
 export async function handler({ document }: Schema) {
@@ -51,7 +56,18 @@ export async function handler({ document }: Schema) {
     }`
   })
 
+  const queries = getQueries(document)
+
+  const queriesTs = queries.map(query => {
+    const queryName = getName(query)
+
+    return `async ${queryName}() {}`
+  })
+
   return [
-    ...typesToInterfaces
+    ...typesToInterfaces,
+    `type Query {
+      ${queriesTs.join('\n')}
+    }`
   ].join('\n')
 }
