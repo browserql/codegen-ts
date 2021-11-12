@@ -52,6 +52,24 @@ exports.handler = void 0;
 var name_1 = __importDefault(require("@browserql/fpql/get/name"));
 var types_1 = __importDefault(require("@browserql/fpql/get/types"));
 var fields_1 = __importDefault(require("@browserql/fpql/get/fields"));
+var kind_1 = __importDefault(require("@browserql/fpql/get/kind"));
+var kind_2 = __importDefault(require("@browserql/fpql/parse/kind"));
+function tsKindType(type) {
+    if (type === 'String' || type === 'ID') {
+        return 'string';
+    }
+    if (type === 'Int' || type === 'Float') {
+        return 'number';
+    }
+    if (type === 'Boolean') {
+        return 'boolean';
+    }
+}
+function tsKind(kind) {
+    var parsed = (0, kind_2.default)(kind);
+    var type = tsKindType(parsed.type);
+    return type;
+}
 function handler(_a) {
     var document = _a.document;
     return __awaiter(this, void 0, void 0, function () {
@@ -63,7 +81,8 @@ function handler(_a) {
                 var fields = (0, fields_1.default)(type);
                 return "interface " + typeName + " {\n      " + fields.map(function (field) {
                     var fieldName = (0, name_1.default)(field);
-                    return fieldName + ": any";
+                    var kind = (0, kind_1.default)(type);
+                    return fieldName + ": " + tsKind(kind);
                 }).join('\n') + "\n    }";
             });
             return [2 /*return*/, __spreadArray([], typesToInterfaces, true).join('\n')];
