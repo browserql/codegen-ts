@@ -100,7 +100,7 @@ function handler(_a) {
                 return "async " + queryName + "() {}";
             });
             return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
-                    "type Query {\n      " + queriesTs.join('\n') + "\n    }"
+                    "export interface Query {\n      " + queriesTs.join('\n') + "\n    }"
                 ], false).join('\n')];
         });
     });
