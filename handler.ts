@@ -61,7 +61,7 @@ export async function handler({ document }: Schema) {
   const queriesTs = queries.map(query => {
     const queryName = getName(query)
 
-    return `async ${queryName}() {}`
+    return `${queryName}(): Promise<any>`
   })
 
   return [

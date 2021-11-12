@@ -97,7 +97,7 @@ function handler(_a) {
             queries = (0, queries_1.default)(document);
             queriesTs = queries.map(function (query) {
                 var queryName = (0, name_1.default)(query);
-                return "async " + queryName + "() {}";
+                return queryName + "(): Promise<any>";
             });
             return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
                     "export interface Query {\n      " + queriesTs.join('\n') + "\n    }"
