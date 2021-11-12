@@ -2,6 +2,7 @@ import { DocumentNode, GraphQLSchema, parse } from 'graphql';
 import getEnumerations from '@browserql/fpql/get/enumerations';
 import getName from '@browserql/fpql/get/name';
 import getTypes from '@browserql/fpql/get/types';
+import getFields from '@browserql/fpql/get/fields';
 
 interface Schema {
   source: string
@@ -14,8 +15,15 @@ export async function handler({ document }: Schema) {
 
   const typesToInterfaces = types.map(type => {
     const typeName = getName(type)
+    const fields = getFields(type)
 
-    return `interface ${typeName} {}`
+    return `interface ${typeName} {
+      ${fields.map(field => {
+        const fieldName = getName(field)
+
+        return `${fieldName}: any`
+      }).join('\n')}
+    }`
   })
 
   return [

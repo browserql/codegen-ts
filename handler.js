@@ -51,6 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
 var name_1 = __importDefault(require("@browserql/fpql/get/name"));
 var types_1 = __importDefault(require("@browserql/fpql/get/types"));
+var fields_1 = __importDefault(require("@browserql/fpql/get/fields"));
 function handler(_a) {
     var document = _a.document;
     return __awaiter(this, void 0, void 0, function () {
@@ -59,7 +60,11 @@ function handler(_a) {
             types = (0, types_1.default)(document);
             typesToInterfaces = types.map(function (type) {
                 var typeName = (0, name_1.default)(type);
-                return "interface " + typeName + " {}";
+                var fields = (0, fields_1.default)(type);
+                return "interface " + typeName + " {\n      " + fields.map(function (field) {
+                    var fieldName = (0, name_1.default)(field);
+                    return fieldName + ": any";
+                }).join('\n') + "\n    }";
             });
             return [2 /*return*/, __spreadArray([], typesToInterfaces, true).join('\n')];
         });
