@@ -85,7 +85,8 @@ function handler(_a) {
                 return "export interface " + typeName + " {\n      " + fields.map(function (field) {
                     var fieldName = (0, name_1.default)(field);
                     var kind = (0, kind_1.default)(field);
-                    return fieldName + ": " + tsKind(kind);
+                    var parsed = (0, kind_2.default)(kind);
+                    return "" + fieldName + (parsed.required ? '' : '?') + ": " + tsKind(kind);
                 }).join('\n') + "\n    }";
             });
             return [2 /*return*/, __spreadArray([], typesToInterfaces, true).join('\n')];

@@ -44,8 +44,9 @@ export async function handler({ document }: Schema) {
       ${fields.map(field => {
         const fieldName = getName(field)
         const kind = getKind(field)
+        const parsed = parseKind(kind)
 
-        return `${fieldName}: ${tsKind(kind)}`
+        return `${fieldName}${parsed.required ? '' : '?'}: ${tsKind(kind)}`
       }).join('\n')}
     }`
   })
