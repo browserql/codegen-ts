@@ -109,7 +109,9 @@ function handler(_a) {
                     return "" + argName + (parsed.required ? '' : '?') + ": " + tsKind(kind) + ",";
                 }).join('\n') + "\n    ): Promise<" + tsKind(queryKind) + ">";
             });
-            return [2 /*return*/, __spreadArray(__spreadArray([], typesToInterfaces, true), [
+            return [2 /*return*/, __spreadArray(__spreadArray([
+                    '// ts'
+                ], typesToInterfaces, true), [
                     "export interface Query {\n      " + queriesTs.join('\n') + "\n    }"
                 ], false).join('\n')];
         });

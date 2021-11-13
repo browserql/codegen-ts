@@ -78,6 +78,7 @@ export async function handler({ document }: Schema) {
   })
 
   return [
+    '// ts',
     ...typesToInterfaces,
     `export interface Query {
       ${queriesTs.join('\n')}
