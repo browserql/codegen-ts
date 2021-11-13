@@ -21,6 +21,8 @@ type CustomScalar {
   existingScalar: Date
 }
 
+union FooUnion = BuiltInGraphqlType | GraphQLField
+
 type TypeLink {
   type: GraphQLField
   e: Enumeration
@@ -40,7 +42,7 @@ type Query {
     arg: ID
     requiredArg: ID!
     defaultValue: Int = 0
-  ): ID
+  ): FooUnion
 }
 
 

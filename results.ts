@@ -18,6 +18,7 @@ export interface CustomScalar {
   unexistingScalar: FOO; // FOO !
   existingScalar?: Date | null; // Date
 }
+export type FooUnion = BuiltInGraphqlType | GraphQLField;
 export interface TypeLink {
   type?: GraphQLField | null; // GraphQLField
   e?: Enumeration | null; // Enumeration
@@ -34,7 +35,7 @@ export interface Query {
     arg?: string | null;
     requiredArg: string;
     defaultValue?: number | null;
-  }): Promise<string | null>; // ID
+  }): Promise<FooUnion | null>; // FooUnion
 }
 export interface Query {
   extended?: boolean | null; // Boolean

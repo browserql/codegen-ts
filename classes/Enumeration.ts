@@ -1,10 +1,6 @@
 import {
-  EnumTypeDefinitionNode,
-  InputObjectTypeDefinitionNode,
-  ObjectTypeDefinitionNode,
-  ObjectTypeExtensionNode,
+  EnumTypeDefinitionNode
 } from 'graphql';
-import { Field } from './Field';
 import { Name } from './Name';
 
 export class Enumeration {
