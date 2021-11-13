@@ -18,6 +18,9 @@ export interface CustomScalar {
   unexistingScalar: FOO; // FOO !
   existingScalar?: Date | null; // Date
 }
+export interface TypeLink {
+  type?: GraphQLField | null; // GraphQLField
+}
 
 export interface Query {
   withoutArguments?: string | null; // ID

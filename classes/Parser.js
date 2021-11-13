@@ -48,6 +48,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parser = void 0;
 var emitter_1 = require("../emitter");
 var Definition_1 = require("./Definition");
+var Name_1 = require("./Name");
 var Parser = /** @class */ (function () {
     function Parser(document, args) {
         var _this = this;
@@ -55,12 +56,35 @@ var Parser = /** @class */ (function () {
         this.args = args;
         this.definitions = [];
         this.extraScalars = [];
-        emitter_1.emitter.on('scalar', function (scalar) {
-            if (_this.args.scalars && _this.args.scalars[scalar]) {
-                _this.extraScalars.push("export type " + scalar + " = " + _this.args.scalars[scalar]);
+        var definitions = this.document.definitions;
+        emitter_1.emitter.on('unknown', function (unknown) {
+            var def = definitions.find(function (def) {
+                if ('name' in def) {
+                    var name = new Name_1.Name(def.name);
+                    return name.toString() === unknown;
+                }
+            });
+            if (def) {
+                switch (def.kind) {
+                    case 'ScalarTypeDefinition':
+                        {
+                            if (_this.args.scalars && _this.args.scalars[unknown]) {
+                                _this.extraScalars.push("export type " + unknown + " = " + _this.args.scalars[unknown]);
+                            }
+                            else {
+                                _this.extraScalars.push("export type " + unknown + " = unknown");
+                            }
+                        }
+                        break;
+                }
             }
             else {
-                _this.extraScalars.push("export type " + scalar + " = unknown");
+                if (_this.args.scalars && _this.args.scalars[unknown]) {
+                    _this.extraScalars.push("export type " + unknown + " = " + _this.args.scalars[unknown]);
+                }
+                else {
+                    _this.extraScalars.push("export type " + unknown + " = unknown");
+                }
             }
         });
         this.definitions = this.printDefinitions();

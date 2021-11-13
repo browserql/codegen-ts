@@ -31,7 +31,7 @@ var Type = /** @class */ (function () {
         var type = this.getKind();
         var final = type;
         if (!final) {
-            emitter_1.emitter.emit('scalar', this.kind.type);
+            emitter_1.emitter.emit('unknown', this.kind.type);
             final = this.kind.type;
         }
         for (var i = 0; i < parsed.depth; i++) {

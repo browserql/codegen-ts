@@ -32,7 +32,7 @@ export class Type {
     let final = type
 
     if (!final) {
-      emitter.emit('scalar', this.kind.type)
+      emitter.emit('unknown', this.kind.type)
       final = this.kind.type
     }
 

@@ -21,6 +21,10 @@ type CustomScalar {
   existingScalar: Date
 }
 
+type TypeLink {
+  type: GraphQLField
+}
+
 scalar Date
 
 type Query {
