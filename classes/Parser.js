@@ -68,22 +68,22 @@ var Parser = /** @class */ (function () {
                 switch (def.kind) {
                     case 'ScalarTypeDefinition':
                         {
-                            if (_this.args.scalars && _this.args.scalars[unknown]) {
-                                _this.extraScalars.push("export type " + unknown + " = " + _this.args.scalars[unknown]);
-                            }
-                            else {
-                                _this.extraScalars.push("export type " + unknown + " = unknown");
+                            var scalar = "export type " + unknown + " = " + (_this.args.scalars && _this.args.scalars[unknown]
+                                ? _this.args.scalars[unknown]
+                                : 'unknown');
+                            if (!_this.extraScalars.includes(scalar)) {
+                                _this.extraScalars.push(scalar);
                             }
                         }
                         break;
                 }
             }
             else {
-                if (_this.args.scalars && _this.args.scalars[unknown]) {
-                    _this.extraScalars.push("export type " + unknown + " = " + _this.args.scalars[unknown]);
-                }
-                else {
-                    _this.extraScalars.push("export type " + unknown + " = unknown");
+                var scalar = "export type " + unknown + " = " + (_this.args.scalars && _this.args.scalars[unknown]
+                    ? _this.args.scalars[unknown]
+                    : 'unknown');
+                if (!_this.extraScalars.includes(scalar)) {
+                    _this.extraScalars.push(scalar);
                 }
             }
         });

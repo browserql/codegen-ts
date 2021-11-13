@@ -27,28 +27,30 @@ export class Parser {
           return name.toString() === unknown;
         }
       });
-      
+
       if (def) {
         switch (def.kind) {
           case 'ScalarTypeDefinition':
             {
-              if (this.args.scalars && this.args.scalars[unknown]) {
-                this.extraScalars.push(
-                  `export type ${unknown} = ${this.args.scalars[unknown]}`
-                );
-              } else {
-                this.extraScalars.push(`export type ${unknown} = unknown`);
+              const scalar = `export type ${unknown} = ${
+                this.args.scalars && this.args.scalars[unknown]
+                  ? this.args.scalars[unknown]
+                  : 'unknown'
+              }`;
+              if (!this.extraScalars.includes(scalar)) {
+                this.extraScalars.push(scalar);
               }
             }
             break;
         }
       } else {
-        if (this.args.scalars && this.args.scalars[unknown]) {
-          this.extraScalars.push(
-            `export type ${unknown} = ${this.args.scalars[unknown]}`
-          );
-        } else {
-          this.extraScalars.push(`export type ${unknown} = unknown`);
+        const scalar = `export type ${unknown} = ${
+          this.args.scalars && this.args.scalars[unknown]
+            ? this.args.scalars[unknown]
+            : 'unknown'
+        }`;
+        if (!this.extraScalars.includes(scalar)) {
+          this.extraScalars.push(scalar);
         }
       }
     });
