@@ -27,6 +27,7 @@ function tsKindType(type: string) {
   if (type === 'Date') {
     return 'Date'
   }
+  return type
 }
 
 function tsKind(kind: string) {
