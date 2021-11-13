@@ -20,6 +20,12 @@ export interface CustomScalar {
 }
 export interface TypeLink {
   type?: GraphQLField | null; // GraphQLField
+  e?: Enumeration | null; // Enumeration
+}
+export enum Enumeration {
+  a = 'a',
+  b = 'b',
+  c = 'c',
 }
 
 export interface Query {

@@ -23,6 +23,13 @@ type CustomScalar {
 
 type TypeLink {
   type: GraphQLField
+  e: Enumeration
+}
+
+enum Enumeration {
+  a
+  b
+  c
 }
 
 scalar Date
