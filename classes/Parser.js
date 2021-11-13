@@ -35,15 +35,60 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
-var Parser_1 = require("./classes/Parser");
-function handler(_a) {
-    var document = _a.document, args = _a.arguments;
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            return [2 /*return*/, Parser_1.Parser.parse(document, args)];
+exports.Parser = void 0;
+var emitter_1 = require("../emitter");
+var Definition_1 = require("./Definition");
+var Parser = /** @class */ (function () {
+    function Parser(document, args) {
+        var _this = this;
+        this.document = document;
+        this.args = args;
+        this.definitions = [];
+        this.extraScalars = [];
+        emitter_1.emitter.on('scalar', function (scalar) {
+            if (_this.args.scalars && _this.args.scalars[scalar]) {
+                _this.extraScalars.push("export type " + scalar + " = " + _this.args.scalars[scalar]);
+            }
+            else {
+                _this.extraScalars.push("export type " + scalar + " = unknown");
+            }
         });
-    });
-}
-exports.handler = handler;
+        this.definitions = this.printDefinitions();
+    }
+    Parser.parse = function (document, args) {
+        if (args === void 0) { args = {}; }
+        return __awaiter(this, void 0, void 0, function () {
+            var doc;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        doc = new Parser(document, args);
+                        return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 0); })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, doc.toString()];
+                }
+            });
+        });
+    };
+    Parser.prototype.printDefinitions = function () {
+        var definitions = this.document.definitions;
+        var defs = definitions.map(function (def) { return new Definition_1.Definition(def).toString(); });
+        return defs;
+    };
+    Parser.prototype.toString = function () {
+        return __spreadArray(__spreadArray([], this.definitions, true), this.extraScalars, true).join('\n');
+    };
+    return Parser;
+}());
+exports.Parser = Parser;

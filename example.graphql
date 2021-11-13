@@ -1,0 +1,42 @@
+type BuiltInGraphqlType {
+  id: ID
+  int: Int
+  float: Float
+  bool: Boolean
+  string: String
+}
+
+type GraphQLField {
+  required: ID!
+  array: [ID]
+  requiredArray: [ID]!
+  requiredItem: [ID!]
+  requiredItemArray: [ID!]!
+  nestedArray: [[ID]]
+  nestedRequired: [[ID!]!]!
+}
+
+type CustomScalar {
+  unexistingScalar: FOO!
+  existingScalar: Date
+}
+
+scalar Date
+
+type Query {
+  withoutArguments: ID
+  withArguments(
+    arg: ID
+    requiredArg: ID!
+    defaultValue: Int = 0
+  ): ID
+}
+
+
+extend type Query {
+  extended: Boolean
+}
+
+type Query {
+  forceExtended: Boolean
+}

@@ -36,14 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
-var Parser_1 = require("./classes/Parser");
-function handler(_a) {
-    var document = _a.document, args = _a.arguments;
+var promises_1 = require("fs/promises");
+var graphql_1 = require("graphql");
+var handler_1 = require("./handler");
+function run() {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            return [2 /*return*/, Parser_1.Parser.parse(document, args)];
+        var source, res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, promises_1.readFile)("example.graphql")];
+                case 1:
+                    source = (_a.sent()).toString();
+                    return [4 /*yield*/, (0, handler_1.handler)({
+                            source: source,
+                            document: (0, graphql_1.parse)(source),
+                            // schema: buildSchema(source, { assumeValid: true }),
+                            arguments: {
+                                scalars: {
+                                    FOO: 'string'
+                                }
+                            }
+                        })];
+                case 2:
+                    res = _a.sent();
+                    return [4 /*yield*/, (0, promises_1.writeFile)('results.ts', res)];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
-exports.handler = handler;
+run();

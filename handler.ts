@@ -1,4 +1,9 @@
-import { DocumentNode, GraphQLSchema, ObjectTypeDefinitionNode } from 'graphql';
+import {
+  DefinitionNode,
+  DocumentNode,
+  GraphQLSchema,
+  ObjectTypeDefinitionNode,
+} from 'graphql';
 import getEnumerations from '@browserql/fpql/get/enumerations';
 import getQueries from '@browserql/fpql/get/queries';
 import getName from '@browserql/fpql/get/name';
@@ -7,81 +12,62 @@ import getFields from '@browserql/fpql/get/fields';
 import getKind from '@browserql/fpql/get/kind';
 import parseKind from '@browserql/fpql/parse/kind';
 import getArguments from '@browserql/fpql/get/arguments';
+import { Parser, ParserArguments } from './classes/Parser';
 
 interface Schema {
-  source: string
-  document: DocumentNode
-  schema: GraphQLSchema
+  source: string;
+  document: DocumentNode;
+  schema: GraphQLSchema;
+  arguments?: ParserArguments;
 }
 
-function tsKindType(type: string) {
-  if (type === 'String' || type === 'ID') {
-    return 'string'
-  }
-  if (type === 'Int' || type === 'Float') {
-    return 'number'
-  }
-  if (type === 'Boolean') {
-    return 'boolean'
-  }
-  if (type === 'Date') {
-    return 'Date'
-  }
-  return type
-}
+export async function handler({ document, arguments: args }: Schema) {
+  return Parser.parse(document, args);
+  // const types = getTypes(document) as ObjectTypeDefinitionNode[];
 
-function tsKind(kind: string) {
-  const parsed = parseKind(kind)
-  const type = tsKindType(parsed.type)
-  let arrays = ''
-  for (let i = 0; i < parsed.depth; i++) {
-    arrays += '[]'
-  }
-  return `${type}${arrays}`
-}
+  // const typesToInterfaces = types.map((type) => {
+  //   const typeName = getName(type);
+  //   const fields = getFields(type);
 
-export async function handler({ document }: Schema) {
-  const types = getTypes(document) as ObjectTypeDefinitionNode[]
+  //   return `export interface ${typeName} {
+  //     ${fields
+  //       .map((field) => {
+  //         const fieldName = getName(field);
+  //         const kind = getKind(field);
+  //         const parsed = parseKind(kind);
 
-  const typesToInterfaces = types.map(type => {
-    const typeName = getName(type)
-    const fields = getFields(type)
+  //         return `${fieldName}${parsed.required ? "" : "?"}: ${tsKind(kind)}`;
+  //       })
+  //       .join("\n")}
+  //   }`;
+  // });
 
-    return `export interface ${typeName} {
-      ${fields.map(field => {
-        const fieldName = getName(field)
-        const kind = getKind(field)
-        const parsed = parseKind(kind)
+  // const queries = getQueries(document);
 
-        return `${fieldName}${parsed.required ? '' : '?'}: ${tsKind(kind)}`
-      }).join('\n')}
-    }`
-  })
+  // const queriesTs = queries.map((query) => {
+  //   const queryName = getName(query);
+  //   const args = getArguments(query);
+  //   const queryKind = getKind(query);
 
-  const queries = getQueries(document)
+  //   return `${queryName}(
+  //     ${args
+  //       .map((arg) => {
+  //         const argName = getName(arg);
+  //         // @ts-ignore
+  //         const kind = getKind(arg);
+  //         const parsed = parseKind(kind);
 
-  const queriesTs = queries.map(query => {
-    const queryName = getName(query)
-    const args = getArguments(query)
-    const queryKind = getKind(query)
+  //         return `${argName}${parsed.required ? "" : "?"}: ${tsKind(kind)},`;
+  //       })
+  //       .join("\n")}
+  //   ): Promise<${tsKind(queryKind)}>`;
+  // });
 
-    return `${queryName}(
-      ${args.map(arg => {
-        const argName = getName(arg)
-        // @ts-ignore
-        const kind = getKind(arg)
-        const parsed = parseKind(kind)
-
-        return `${argName}${parsed.required ? '' : '?'}: ${tsKind(kind)},`
-      }).join('\n')}
-    ): Promise<${tsKind(queryKind)}>`
-  })
-
-  return [
-    '// ts',
-    ...typesToInterfaces,
-    `export interface Query {
-      ${queriesTs.join('\n')}
-    }`
-  ].join('\n')
+  // return [
+  //   "// ts",
+  //   ...typesToInterfaces,
+  //   `export interface Query {
+  //     ${queriesTs.join("\n")}
+  //   }`,
+  // ].join("\n");
 }
