@@ -1,15 +1,15 @@
 import getKind from "@browserql/fpql/get/kind";
 import parseKind from "@browserql/fpql/parse/kind";
-import { FieldDefinitionNode, NameNode } from "graphql";
+import { FieldDefinitionNode, InputValueDefinitionNode, NameNode } from "graphql";
 import { Arg } from "./Arg";
 import { Name } from "./Name";
 import { Type } from "./Type";
 
 export class Field {
-  constructor(private field: FieldDefinitionNode) {}
+  constructor(private field: FieldDefinitionNode | InputValueDefinitionNode) {}
 
   toString() {
-    const { arguments: args = [] } = this.field
+    const { arguments: args = [] } = 'arguments' in this.field ? this.field : {}
     const kind = getKind(this.field)
     const parsed = parseKind(kind)
     const type = new Type(kind)

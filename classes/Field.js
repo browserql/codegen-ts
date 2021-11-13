@@ -14,7 +14,7 @@ var Field = /** @class */ (function () {
         this.field = field;
     }
     Field.prototype.toString = function () {
-        var _a = this.field.arguments, args = _a === void 0 ? [] : _a;
+        var _a = ('arguments' in this.field ? this.field : {}).arguments, args = _a === void 0 ? [] : _a;
         var kind = (0, kind_1.default)(this.field);
         var parsed = (0, kind_2.default)(kind);
         var type = new Type_1.Type(kind);

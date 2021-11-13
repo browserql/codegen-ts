@@ -36,4 +36,11 @@ export interface Query {
 export interface Query {
   forceExtended?: boolean | null; // Boolean
 }
+export interface InputType {
+  id?: string | null; // ID
+  int?: number | null; // Int
+  float?: number | null; // Float
+  bool?: boolean | null; // Boolean
+  string?: string | null; // String
+}
 export type FOO = string;

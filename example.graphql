@@ -44,3 +44,11 @@ extend type Query {
 type Query {
   forceExtended: Boolean
 }
+
+input InputType {
+  id: ID
+  int: Int
+  float: Float
+  bool: Boolean
+  string: String
+}

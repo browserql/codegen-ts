@@ -1,9 +1,9 @@
-import { ObjectTypeDefinitionNode, ObjectTypeExtensionNode } from "graphql";
+import { InputObjectTypeDefinitionNode, ObjectTypeDefinitionNode, ObjectTypeExtensionNode } from "graphql";
 import { Field } from "./Field";
 import { Name } from "./Name";
 
 export class TypeDefinition {
-  constructor(private type: ObjectTypeDefinitionNode | ObjectTypeExtensionNode) {}
+  constructor(private type: ObjectTypeDefinitionNode | ObjectTypeExtensionNode | InputObjectTypeDefinitionNode) {}
 
   toString() {
     const { fields = [] } = this.type

@@ -9,7 +9,9 @@ var Definition = /** @class */ (function () {
     Definition.prototype.toString = function () {
         switch (this.definition.kind) {
             case 'ObjectTypeDefinition':
-            case 'ObjectTypeExtension': return new TyepDefinition_1.TypeDefinition(this.definition).toString();
+            case 'ObjectTypeExtension':
+            case 'InputObjectTypeDefinition':
+                return new TyepDefinition_1.TypeDefinition(this.definition).toString();
         }
         return '';
     };
