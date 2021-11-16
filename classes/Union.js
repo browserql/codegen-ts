@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Union = void 0;
 var Name_1 = require("./Name");
 var Union = /** @class */ (function () {

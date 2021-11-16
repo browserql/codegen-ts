@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.TypeDefinition = void 0;
 var Field_1 = require("./Field");
 var Name_1 = require("./Name");

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Definition = void 0;
 var Enumeration_1 = require("./Enumeration");
 var TyepDefinition_1 = require("./TyepDefinition");

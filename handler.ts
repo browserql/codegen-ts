@@ -1,8 +1,10 @@
+
 import {
   DefinitionNode,
   DocumentNode,
   GraphQLSchema,
   ObjectTypeDefinitionNode,
+  // @ts-ignore
 } from 'graphql';
 import getEnumerations from '@browserql/fpql/get/enumerations';
 import getQueries from '@browserql/fpql/get/queries';
