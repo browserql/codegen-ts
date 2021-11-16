@@ -1,6 +1,6 @@
 {
   "name": "@browserql/codegen-ts",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "main": "handler.js",
   "license": "MIT",
   "scripts": {

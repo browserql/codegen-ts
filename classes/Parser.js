@@ -44,7 +44,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parser = void 0;
 var emitter_1 = require("../emitter");
 var Definition_1 = require("./Definition");
@@ -60,8 +60,8 @@ var Parser = /** @class */ (function () {
         emitter_1.emitter.on('unknown', function (unknown) {
             var def = definitions.find(function (def) {
                 if ('name' in def) {
-                    var name_1 = new Name_1.Name(def.name);
-                    return name_1.toString() === unknown;
+                    var name = new Name_1.Name(def.name);
+                    return name.toString() === unknown;
                 }
             });
             if (def) {

@@ -17,7 +17,11 @@ async function run(commitMessage) {
 
   await promisify(exec)(`git checkout -b ${nextBranch}`)
 
-  // await promisify(exec)('yarn tsc handler.ts')
+  try {
+    await promisify(exec)('yarn tsc')
+  } catch (error) {
+    
+  }
 
   await promisify(exec)('git add .')
 
