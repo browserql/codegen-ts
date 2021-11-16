@@ -1,3 +1,4 @@
+// @ts-ignore
 import { DocumentNode, NameNode } from 'graphql';
 import { emitter } from '../emitter';
 import { Definition } from './Definition';
