@@ -12,7 +12,7 @@ export class Parser {
   static async parse(document: DocumentNode, args: ParserArguments = {}) {
     const doc = new Parser(document, args);
     await new Promise((resolve) => setTimeout(resolve, 0));
-    return doc.toString();
+    return '// Generated with browserql\n'.concat(doc.toString());
   }
 
   definitions: string[] = [];

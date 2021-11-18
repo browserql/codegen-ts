@@ -100,7 +100,7 @@ var Parser = /** @class */ (function () {
                         return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 0); })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, doc.toString()];
+                        return [2 /*return*/, '// Generated with browserql\n'.concat(doc.toString())];
                 }
             });
         });
