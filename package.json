@@ -1,6 +1,6 @@
 {
   "name": "@browserql/codegen-ts",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "main": "handler.js",
   "license": "MIT",
   "scripts": {
@@ -12,6 +12,7 @@
     "url": "https://github.com/browserql/codegen-ts"
   },
   "devDependencies": {
+    "@types/graphql": "^14.5.0",
     "prettier": "^2.4.1",
     "semver": "^7.3.5",
     "ts-node": "^10.4.0",
